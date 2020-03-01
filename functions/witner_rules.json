@@ -1,0 +1,144 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+      
+    "test": {
+      "geofire": {
+        "testweets": {
+          // Index each location's geohash for faster querying
+          ".indexOn": ["g"],
+
+          // Schema validation
+          "$key": {
+            // Key validation
+            ".validate": "newData.hasChildren(['g', 'l']) && newData.getPriority().length <= 22 && newData.getPriority().length > 0",
+
+            // Geohash validation
+            "g": {
+              ".validate": "newData.val() == newData.parent().getPriority()"
+            },
+
+            // Location coordinates validation
+            "l": {
+              "0" : {
+                ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+              },
+              "1" : {
+                ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+
+            // Don't allow any other keys to be written
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      }
+    },
+      
+    "users": {
+      "$user_id":  {
+      	"geofire": {
+      		"track": {
+            // Index each location's geohash for faster querying
+            ".indexOn": ["g"],
+
+            // Schema validation
+            "$key": {
+              // Key validation
+              ".validate": "newData.hasChildren(['g', 'l']) && newData.getPriority().length <= 22 && newData.getPriority().length > 0",
+
+              // Geohash validation
+              "g": {
+                ".validate": "newData.val() == newData.parent().getPriority()"
+              },
+
+              // Location coordinates validation
+              "l": {
+                "0" : {
+                  ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+                },
+                "1" : {
+                  ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+                },
+                "$other": {
+                  ".validate": false
+                }
+              },
+
+              // Don't allow any other keys to be written
+              "$other": {
+                ".validate": false
+              }
+            }
+          }
+        }
+      }
+    }, 
+      
+		"weets": {
+      ".write": "auth != null && auth.token.isAdmin == true",
+      
+      "tweets": {
+        "$tweet_id": {
+          ".indexOn": ["id_str"],
+        }
+      },
+      "nonGeoTweets": {
+          "$tweet_id": {
+            ".indexOn": ["id_str"],
+          }
+      },
+      "geoTweets": {
+          "$tweet_id": {
+            ".indexOn": ["id_str"],
+          }
+      },
+      "witneets": {
+          "$witneet_id": {
+            ".indexOn": ["tweetId"],
+          }
+      },
+      "geofire": {
+      	"witneets": {
+          // Index each location's geohash for faster querying
+          ".indexOn": ["g"],
+
+          // Schema validation
+          "$key": {
+            // Key validation
+            ".validate": "newData.hasChildren(['g', 'l']) && newData.getPriority().length <= 22 && newData.getPriority().length > 0",
+
+            // Geohash validation
+            "g": {
+              ".validate": "newData.val() == newData.parent().getPriority()"
+            },
+
+            // Location coordinates validation
+            "l": {
+              "0" : {
+                ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+              },
+              "1" : {
+                ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+
+            // Don't allow any other keys to be written
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

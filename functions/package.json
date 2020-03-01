@@ -1,0 +1,27 @@
+{
+  "name": "witner-functions",
+  "description": "Cloud Functions for WITNER",
+  "version": "0.5.1",
+  "private": true,
+  "license": "MIT",
+  "author": "Feyzi Çelik Yılankıran.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bruberbeck/witner-functions"
+  },
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase": "^3.9.0",
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.1.0",
+    "geofire": "^4.1.2",
+    "request": "^2.88.0",
+    "twitter": "^1.7.1"
+  }
+}

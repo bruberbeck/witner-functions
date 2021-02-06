@@ -6,7 +6,7 @@
 
 const Functions = require('firebase-functions');
 const Admin = require('firebase-admin');
-const Geofire = require('geofire');
+const GeoFire = require('geofire');
 const Twitter = require('twitter');
 
 //
@@ -33,7 +33,7 @@ const util = (function() {
   // tweets.
   const witneetsRef = Admin.database().ref(witneetsPath);
   const witneetsRepliesWitneetsRef = Admin.database().ref(witneetsRepliesWitneetsPath);
-  const witneetsGeofire = new Geofire(Admin.database().ref(geofireWitneetsPath));
+  const witneetsGeofire = new GeoFire.GeoFire(Admin.database().ref(geofireWitneetsPath));
 
   function _getWitneet(tweet, parsedCoords) {
       // Stack hashtags into this variable.
